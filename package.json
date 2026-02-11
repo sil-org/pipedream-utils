@@ -1,0 +1,42 @@
+{
+  "name": "pipedream-utils",
+  "type": "module",
+  "version": "0.0.1",
+  "description": "Utilities to be used in Pipedream as NPM dependencies",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --test",
+    "lint": "npx eslint .",
+    "type-check": "tsc",
+    "format": "prettier --write \"**/*.js\"",
+    "format-check": "prettier --check \"**/*.js\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sil-org/pipedream-utils.git"
+  },
+  "keywords": [
+    "pipedream"
+  ],
+  "author": "SIL Global",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sil-org/pipedream-utils/issues"
+  },
+  "homepage": "https://github.com/sil-org/pipedream-utils#readme",
+  "dependencies": {
+    "netsuite-api-client": "^1.0.3",
+    "ssh2-sftp-client": "^12.0.1",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.39.1",
+    "@types/node": "^25.0.9",
+    "@typescript-eslint/eslint-plugin": "^8.53.0",
+    "@typescript-eslint/parser": "^8.53.0",
+    "eslint": "^9.39.1",
+    "globals": "^16.5.0",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  }
+}
