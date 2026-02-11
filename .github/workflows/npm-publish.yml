@@ -3,9 +3,8 @@ on:
   workflow_dispatch:
 
 permissions:
-  id-token: write  # Required for OIDC https://docs.npmjs.com/trusted-publishers
+  id-token: write # Required for OIDC https://docs.npmjs.com/trusted-publishers
   contents: read
-
 
 jobs:
   dry-run:
@@ -18,16 +17,20 @@ jobs:
           ref: main
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
-          registry-url: "https://registry.npmjs.org"
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
           cache: npm
       - run: npm ci
+
       - name: Check formatting
         run: npm run format-check
+
       - name: Lint
         run: npm run lint
+
       - name: ts check
         run: npm run type-check
+
       - name: Dry run publish
         if: github.actor != 'dependabot[bot]'
         run: npm publish --dry-run
@@ -36,7 +39,6 @@ jobs:
     name: Publish to NPM
     needs: dry-run
     runs-on: ubuntu-latest
-    # Only publish on release branches — semantic-release has already bumped version
     if: github.actor != 'dependabot[bot]'
     timeout-minutes: ${{ fromJSON(vars.DEFAULT_JOB_TIMEOUT_MINUTES) }}
     steps:
@@ -44,12 +46,14 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 22
-          registry-url: "https://registry.npmjs.org/"
+          registry-url: 'https://registry.npmjs.org/'
           always-auth: true
           cache: npm
       - run: npm ci
+
       # Ensure npm 11.5.1 or later is installed
       - name: Update npm
         run: npm install -g npm@latest
+
       - name: Publish
         run: npm publish --provenance --access public
