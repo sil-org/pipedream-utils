@@ -1,5 +1,5 @@
 {
-  "name": "pipedream-utils",
+  "name": "@sil-org/pipedream-utils",
   "type": "module",
   "version": "0.0.1",
   "description": "Utilities to be used in Pipedream as NPM dependencies",
