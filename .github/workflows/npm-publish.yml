@@ -1,0 +1,59 @@
+name: Publish
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write # Required for OIDC https://docs.npmjs.com/trusted-publishers
+  contents: read
+
+jobs:
+  dry-run:
+    name: NPM Dry Run
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ fromJSON(vars.DEFAULT_JOB_TIMEOUT_MINUTES) }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: npm
+      - run: npm ci
+
+      - name: Check formatting
+        run: npm run format-check
+
+      - name: Lint
+        run: npm run lint
+
+      - name: ts check
+        run: npm run type-check
+
+      - name: Dry run publish
+        if: github.actor != 'dependabot[bot]'
+        run: npm publish --dry-run
+
+  publish:
+    name: Publish to NPM
+    needs: dry-run
+    runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
+    timeout-minutes: ${{ fromJSON(vars.DEFAULT_JOB_TIMEOUT_MINUTES) }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: 'https://registry.npmjs.org/'
+          always-auth: true
+          cache: npm
+      - run: npm ci
+
+      # Ensure npm 11.5.1 or later is installed
+      - name: Update npm
+        run: npm install -g npm@latest
+
+      - name: Publish
+        run: npm publish --provenance --access public
