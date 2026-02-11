@@ -11,5 +11,7 @@
     "lib": ["ES2021", "DOM"],
     "types": ["node"]
   },
-  "include": ["**/*.js"]
+  "include": ["**/*.js"],
+  "exclude": ["node_modules"]
 }
+
