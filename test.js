@@ -55,7 +55,7 @@ describe('lastDay', () => {
     testCases.forEach(({ date, expected }) => {
       assert.deepStrictEqual(lastDay(date), expected)
     })
-    
+
     // Test invalid date separately
     const result = lastDay('not a date')
     assert.ok(result instanceof Date)
