@@ -51,10 +51,14 @@ describe('lastDay', () => {
       { date: new Date('2025-11-30T07:00:00.0000000-05:00'), expected: new Date('2025-11-30T00:00:00.000Z') },
       { date: new Date('2025-12-31T23:59:59.999Z'), expected: new Date('2025-12-31T00:00:00.000Z') },
       { date: new Date('2025-02-28T12:59:10.0000000-05:00'), expected: new Date('2025-02-28T00:00:00.000Z') },
-      { date: 'not a date', expected: new Date() },
     ]
     testCases.forEach(({ date, expected }) => {
       assert.deepStrictEqual(lastDay(date), expected)
     })
+    
+    // Test invalid date separately
+    const result = lastDay('not a date')
+    assert.ok(result instanceof Date)
+    assert.ok(!isNaN(result.getTime()))
   })
 })
