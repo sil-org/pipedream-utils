@@ -1,0 +1,29 @@
+name: Test
+
+on:
+  push:
+    branches: ['**']
+
+jobs:
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    timeout-minutes: ${{ fromJSON(vars.DEFAULT_JOB_TIMEOUT_MINUTES) }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run npm install
+        run: npm install
+
+      - name: Check formatting
+        run: npm run format-check
+
+      - name: Run linter
+        run: npm run lint
+
+      - name: Run typecheck
+        run: npm run type-check
+
+      - name: Run unit tests
+        run: npm run test

@@ -33,6 +33,9 @@ jobs:
       - name: ts check
         run: npm run type-check
 
+      - name: test
+        run: npm run test
+
       - name: Dry run publish
         if: github.actor != 'dependabot[bot]'
         run: npm publish --dry-run
