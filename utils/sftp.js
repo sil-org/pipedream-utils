@@ -22,18 +22,14 @@ import Client from 'ssh2-sftp-client'
  * @returns {Promise<SftpResponse>} - { message: string, error: string, successful: boolean }
  */
 export async function renameSftpFile(filePath, dest, sftpConfig) {
-  let errMsg
-  let msg
-  let successful = false
-
   if (!sftpConfig.host || !sftpConfig.username || !sftpConfig.privateKey) {
-    errMsg = 'Missing SFTP authentication details.'
-    msg = `Error moving file ${filePath} to ${dest}.`
-    console.error(msg, errMsg)
-    return { message: msg, error: errMsg, successful }
+    throw Error('missing SFTP authentication details')
   }
 
+  let successful = false
   const sftp = new Client()
+  let msg
+  let errMsg
   try {
     await sftp.connect(sftpConfig)
   } catch (error) {
