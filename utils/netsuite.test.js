@@ -21,21 +21,33 @@ describe('netsuite.getRecordPath', () => {
 })
 
 describe('netsuite.netsuiteRequest', () => {
-  it('should submit a request to NetSuite', async (testContext) => {
+  it('should get the requested custom record', async (testContext) => {
     if (!process.env.NETSUITE_CONFIG_DEV) {
       testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
       return
     }
     const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
-    let response
 
-    response = await netsuite.netsuiteRequest(
-      { method: 'GET', path: '/record/v1/customrecord_cseg3/4670', body: '' },
+    const response = await netsuite.netsuiteRequest(
+      {
+        method: 'GET',
+        path: '/record/v1/customrecord_cseg3/4670',
+        body: '',
+      },
       config,
     )
-    assert.strictEqual(response.data.id, '4670')
 
-    response = await netsuite.netsuiteRequest(
+    assert.strictEqual(response.data.id, '4670')
+  })
+
+  it('should get the requested customer', async (testContext) => {
+    if (!process.env.NETSUITE_CONFIG_DEV) {
+      testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
+      return
+    }
+    const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
+
+    const response = await netsuite.netsuiteRequest(
       {
         method: 'PATCH',
         path: '/record/v1/customer/4216',
