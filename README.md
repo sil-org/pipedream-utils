@@ -12,7 +12,7 @@ The following utilities are available under /utils:
     - startsWith
 - `netsuite.js`: NetSuite REST & SuiteQL helpers, including a function to execute a SuiteQL query.
     - getRecordPath
-    - netsuiteRequest
+    - request
     - netsuiteQueryRecords
 - `sftp.js`: SFTP file operations, including a function to move a file by its path to a new destination on an SFTP host.
     - renameSftpFile
