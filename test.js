@@ -29,7 +29,10 @@ describe('netsuite.netsuiteRequest', () => {
     const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
     let response
 
-    response = await netsuite.netsuiteRequest({ method: 'GET', path: '/record/v1/customrecord_cseg3/4670', body: '' }, config)
+    response = await netsuite.netsuiteRequest(
+      { method: 'GET', path: '/record/v1/customrecord_cseg3/4670', body: '' },
+      config,
+    )
     assert.strictEqual(response.data.id, '4670')
 
     response = await netsuite.netsuiteRequest(
