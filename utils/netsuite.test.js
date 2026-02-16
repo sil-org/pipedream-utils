@@ -1,6 +1,17 @@
 import assert from 'node:assert/strict'
+import { loadEnvFile } from 'node:process'
 import { describe, it } from 'node:test'
 import { netsuite } from '../index.js'
+
+try {
+  loadEnvFile('.env')
+} catch (error) {
+  if (error.code === 'ENOENT') {
+    console.log('No env file found, proceeding without it')
+  } else {
+    throw error
+  }
+}
 
 describe('netsuite.getRecordPath', () => {
   it('should get the record path from the URL', () => {
