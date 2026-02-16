@@ -31,7 +31,7 @@ export function getRecordPath(url) {
  * @param {Config} config - NetSuite configuration
  * @returns {Promise<import('netsuite-api-client').NetsuiteResponse>}
  */
-export async function netsuiteRequest(options, config) {
+export async function request(options, config) {
   const client = new NetsuiteApiClient(config)
 
   try {
@@ -58,7 +58,7 @@ export async function netsuiteRequest(options, config) {
  * @param {Config} config - NetSuite configuration
  * @returns {Promise<any>}
  */
-export async function netsuiteQueryRecords(query, config) {
+export async function queryRecords(query, config) {
   const client = new NetsuiteApiClient(config)
   const limit = 1
   let offset = 0

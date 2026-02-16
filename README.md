@@ -12,8 +12,8 @@ The following categories of utilities are available under /utils:
     - startsWith
 - `netsuite`: NetSuite REST & SuiteQL helpers, including a function to execute a SuiteQL query.
     - getRecordPath
-    - netsuiteRequest
-    - netsuiteQueryRecords
+    - request
+    - queryRecords
 - `sftp`: SFTP file operations, including a function to move a file by its path to a new destination on an SFTP host.
     - renameSftpFile
 

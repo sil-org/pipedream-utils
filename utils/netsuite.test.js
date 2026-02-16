@@ -31,7 +31,7 @@ describe('netsuite.getRecordPath', () => {
   })
 })
 
-describe('netsuite.netsuiteRequest', () => {
+describe('netsuite.request', () => {
   it('should get the requested custom record', async (testContext) => {
     if (!process.env.NETSUITE_CONFIG_DEV) {
       testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
@@ -39,7 +39,7 @@ describe('netsuite.netsuiteRequest', () => {
     }
     const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
 
-    const response = await netsuite.netsuiteRequest(
+    const response = await netsuite.request(
       {
         method: 'GET',
         path: '/record/v1/customrecord_cseg3/4670',
@@ -58,7 +58,7 @@ describe('netsuite.netsuiteRequest', () => {
     }
     const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
 
-    const response = await netsuite.netsuiteRequest(
+    const response = await netsuite.request(
       {
         method: 'PATCH',
         path: '/record/v1/customer/4216',
