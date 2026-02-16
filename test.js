@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { getRecordPath, lastDay, netsuiteRequest } from './index.js'
+import { helpers, netsuite } from './index.js'
 
-describe('getRecordPath', () => {
+describe('netsuite.getRecordPath', () => {
   it('should get the record path from the URL', () => {
     const testCases = [
       {
@@ -15,12 +15,12 @@ describe('getRecordPath', () => {
       },
     ]
     testCases.forEach(({ row, expected }) => {
-      assert.strictEqual(getRecordPath(row), expected)
+      assert.strictEqual(netsuite.getRecordPath(row), expected)
     })
   })
 })
 
-describe('netsuiteRequest', () => {
+describe('netsuite.netsuiteRequest', () => {
   it('should submit a request to NetSuite', async (testContext) => {
     if (!process.env.NETSUITE_CONFIG_DEV) {
       testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
@@ -29,10 +29,13 @@ describe('netsuiteRequest', () => {
     const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
     let response
 
-    response = await netsuiteRequest({ method: 'GET', path: '/record/v1/customrecord_cseg3/4670', body: '' }, config)
+    response = await netsuite.netsuiteRequest(
+      { method: 'GET', path: '/record/v1/customrecord_cseg3/4670', body: '' },
+      config,
+    )
     assert.strictEqual(response.data.id, '4670')
 
-    response = await netsuiteRequest(
+    response = await netsuite.netsuiteRequest(
       {
         method: 'PATCH',
         path: '/record/v1/customer/4216',
@@ -44,7 +47,7 @@ describe('netsuiteRequest', () => {
   })
 })
 
-describe('lastDay', () => {
+describe('helpers.lastDay', () => {
   it('should return the beginning of the last day of the current month', () => {
     const testCases = [
       { date: new Date('2025-03-01'), expected: new Date('2025-03-31T00:00:00.000Z') },
@@ -53,11 +56,11 @@ describe('lastDay', () => {
       { date: new Date('2025-02-28T12:59:10.0000000-05:00'), expected: new Date('2025-02-28T00:00:00.000Z') },
     ]
     testCases.forEach(({ date, expected }) => {
-      assert.deepStrictEqual(lastDay(date), expected)
+      assert.deepStrictEqual(helpers.lastDay(date), expected)
     })
 
     // Test invalid date separately
-    const result = lastDay('not a date')
+    const result = helpers.lastDay('not a date')
     assert.ok(result instanceof Date)
     assert.ok(!isNaN(result.getTime()))
   })
