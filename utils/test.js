@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict'
 import { describe, it } from 'node:test'
-import { helpers, netsuite } from './index.js'
+import { helpers, netsuite } from '../index.js'
 
 describe('netsuite.getRecordPath', () => {
   it('should get the record path from the URL', () => {
