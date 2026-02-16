@@ -53,7 +53,7 @@ export async function request(options, config) {
 }
 
 /**
- * Query Netsuite for a specific (single) record.
+ * Run a SuiteQL query to get a specific (single) NetSuite records.
  * @param {string} query
  * @param {Config} config - NetSuite configuration
  * @returns {Promise<any>}
@@ -82,4 +82,15 @@ export async function queryRecord(query, config) {
   }
 
   return response.items[0]
+}
+
+/**
+ * Run a SuiteQL query against NetSuite records.
+ * @param {string} query - SuiteQL Query
+ * @param {Config} config - NetSuite configuration
+ * @param {Number} timeout - The timeout in seconds
+ * @param {Number} timeoutRecords - The maximum number of records to return before timing out
+ * @returns {Promise<any>}
+ */
+export async function queryRecords(query, config, timeout, timeoutRecords) {
 }
