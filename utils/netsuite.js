@@ -53,12 +53,12 @@ export async function request(options, config) {
 }
 
 /**
- * Query Netsuite.
+ * Query Netsuite for a specific (single) record.
  * @param {string} query
  * @param {Config} config - NetSuite configuration
  * @returns {Promise<any>}
  */
-export async function queryRecords(query, config) {
+export async function queryRecord(query, config) {
   const client = new NetsuiteApiClient(config)
   const limit = 1
   let offset = 0
