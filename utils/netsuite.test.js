@@ -31,6 +31,29 @@ describe('netsuite.getRecordPath', () => {
   })
 })
 
+describe('netsuite.queryRecords', () => {
+  it('should get the requested records', async (testContext) => {
+    if (!process.env.NETSUITE_CONFIG_DEV) {
+      testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
+      return
+    }
+    const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
+    const query = `
+      SELECT exchangerate
+      FROM currencyrate
+      WHERE basecurrency = 1
+        AND ROWNUM <= 2;
+    `
+
+    const response = await netsuite.queryRecords(query, config, 30)
+    assert.equal(response.length, 2)
+    assert.ok(
+      response[0].hasOwnProperty('exchangerate'),
+      'Did not find the expected field in the response. Did the call succeed?'
+    )
+  })
+})
+
 describe('netsuite.request', () => {
   it('should get the requested custom record', async (testContext) => {
     if (!process.env.NETSUITE_CONFIG_DEV) {
