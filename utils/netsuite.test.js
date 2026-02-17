@@ -48,7 +48,7 @@ describe('netsuite.queryRecords', () => {
     const response = await netsuite.queryRecords(query, config, 30)
     assert.equal(response.length, 2)
     assert.ok(
-      response[0].hasOwnProperty('exchangerate'),
+      Object.prototype.hasOwnProperty.call(response[0], 'exchangerate'),
       'Did not find the expected field in the response. Did the call succeed?',
     )
   })
