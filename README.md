@@ -19,13 +19,25 @@ The following categories of utilities are available under /utils:
 
 ## Import Example
 
-To use these utilities in your Pipedream, install them via NPM:
+To use these utilities, install via NPM (optional for Pipedream) in your local environment:
 
 ```bash
 
 npm install @sil-org/pipedream-utils
 ```
 
-and import the category/ies of functions you want.
+or in Pipedream just import the category/ies of functions you want.
 
-`import { helpers, netsuite } from '@sil-org/pipedream-utils'`
+`import { helpers, netsuite } from '@sil-org/pipedream-utils@^0.3.0'`
+
+## Contributing
+
+Use the recommended extensions with VSCode/VSCodium.
+
+If using a different IDE, read the .vscode/extensions.json file and install the equivalent extensions in your environment.
+
+Use the scripts in package.json to test, lint and format your code.
+
+The actions will check it when you push.
+
+The "Publish" action must be triggered manually in Github after updating the package.json version (and running `npm i` to update it in the lock file.)
