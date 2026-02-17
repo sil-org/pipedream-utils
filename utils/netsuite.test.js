@@ -32,40 +32,36 @@ describe('netsuite.getRecordPath', () => {
 })
 
 describe('netsuite.request', () => {
-  it('should get the requested custom record', async (testContext) => {
+  it('should be able to call NetSuite', async (testContext) => {
     if (!process.env.NETSUITE_CONFIG_DEV) {
       testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
       return
     }
     const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
-
-    const response = await netsuite.request(
+    const testCases = [
       {
-        method: 'GET',
-        path: '/record/v1/customrecord_cseg3/4670',
-        body: '',
+        name: 'Get the requested custom record',
+        options: {
+          method: 'GET',
+          path: '/record/v1/customrecord_cseg3/4670',
+          body: '',
+        },
+        isExpected: (response) => response.data.id === '4670',
       },
-      config,
-    )
+      {
+        name: 'Update the specified customer',
+        options: {
+          method: 'PATCH',
+          path: '/record/v1/customer/4216',
+          body: '{"isInactive":false}',
+        },
+        isExpected: (response) => response.statusCode === 204,
+      }
+    ]
 
-    assert.strictEqual(response.data.id, '4670')
-  })
-
-  it('should get the requested customer', async (testContext) => {
-    if (!process.env.NETSUITE_CONFIG_DEV) {
-      testContext.skip('NETSUITE_CONFIG_DEV not defined, skipping test')
-      return
+    for (const { name, options, isExpected } of testCases) {
+      const response = await netsuite.request(options, config)
+      assert.ok(isExpected(response), 'Failed test: ' + name)
     }
-    const config = JSON.parse(process.env.NETSUITE_CONFIG_DEV)
-
-    const response = await netsuite.request(
-      {
-        method: 'PATCH',
-        path: '/record/v1/customer/4216',
-        body: '{"isInactive":false}',
-      },
-      config,
-    )
-    assert.strictEqual(response.statusCode, 204)
   })
 })
