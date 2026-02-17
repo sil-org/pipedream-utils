@@ -30,6 +30,17 @@ or in Pipedream just import the category/ies of functions you want.
 
 `import { helpers, netsuite } from '@sil-org/pipedream-utils@^0.3.0'`
 
+## Tests
+
+To manually run the tests...
+1. Clone this repo.
+2. Install the npm dependencies: `npm install`
+3. Run `npm test`
+
+Note: If you also want to run the NetSuite integration tests, copy `.env.example` to
+`.env` and put the application credentials (e.g. to your NetSuite Sandbox) in the
+appropriate places in the `NETSUITE_CONFIG_DEV` value.
+
 ## Contributing
 
 Use the recommended extensions with VSCode/VSCodium.
