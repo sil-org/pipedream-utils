@@ -25,6 +25,21 @@ export function getRecordPath(url) {
   return u.substring(startIndex)
 }
 
+const handleTimeout = (start, count, timeout, timeoutRecords) => {
+  const duration = Date.now() - start
+  if (timeout && duration >= timeout * 1000) {
+    console.error(`Timeout reached at ${duration / 1000} seconds`)
+    return true
+  }
+
+  if (timeoutRecords && count >= timeoutRecords) {
+    console.error(`Timeout reached at ${count} records in ${duration / 1000} seconds`)
+    return true
+  }
+
+  return false
+}
+
 /**
  * Send a request to NetSuite
  * @param {Options} options - Request options
@@ -53,12 +68,12 @@ export async function request(options, config) {
 }
 
 /**
- * Query Netsuite.
+ * Run a SuiteQL query to get a specific (single) NetSuite records.
  * @param {string} query
  * @param {Config} config - NetSuite configuration
  * @returns {Promise<any>}
  */
-export async function queryRecords(query, config) {
+export async function queryRecord(query, config) {
   const client = new NetsuiteApiClient(config)
   const limit = 1
   let offset = 0
@@ -82,4 +97,38 @@ export async function queryRecords(query, config) {
   }
 
   return response.items[0]
+}
+
+/**
+ * Run a SuiteQL query against NetSuite records.
+ * @param {string} query - SuiteQL Query
+ * @param {Config} config - NetSuite configuration
+ * @param {?Number} timeout - The timeout in seconds
+ * @param {Number} timeoutRecords - The maximum number of records to return before timing out
+ * @returns {Promise<Array>}
+ */
+export async function queryRecords(query, config, timeout = null, timeoutRecords = 1000) {
+  const client = new NetsuiteApiClient(config)
+  const limit = Math.min(1000, timeoutRecords)
+  let offset = 0
+  const start = Date.now()
+  let response = {}
+
+  try {
+    let items = []
+    do {
+      response = await client.query(query, limit, offset)
+      items = items.concat(response.items)
+      offset += limit
+
+      if (handleTimeout(start, items.length, timeout, timeoutRecords)) {
+        break
+      }
+    } while (response.hasMore)
+
+    return items
+  } catch (error) {
+    console.error('NetSuite API Error:', error.response?.data || error.message)
+    throw new Error(`Failed to execute SuiteQL query: ${error.response?.data?.detail || error.message}`)
+  }
 }
