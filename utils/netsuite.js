@@ -103,11 +103,11 @@ export async function queryRecord(query, config) {
  * Run a SuiteQL query against NetSuite records.
  * @param {string} query - SuiteQL Query
  * @param {Config} config - NetSuite configuration
- * @param {Number} timeout - The timeout in seconds
+ * @param {?Number} timeout - The timeout in seconds
  * @param {Number} timeoutRecords - The maximum number of records to return before timing out
- * @returns {Promise<any>}
+ * @returns {Promise<Array>}
  */
-export async function queryRecords(query, config, timeout, timeoutRecords) {
+export async function queryRecords(query, config, timeout = null, timeoutRecords = 1000) {
   const client = new NetsuiteApiClient(config)
   const limit = Math.min(1000, timeoutRecords)
   let offset = 0
