@@ -126,16 +126,9 @@ export async function queryRecords(query, config, timeout = null, timeoutRecords
       }
     } while (response.hasMore)
 
-    return items;
+    return items
   } catch (error) {
-    console.error(
-      "NetSuite API Error:",
-      error.response?.data || error.message
-    );
-    throw new Error(
-      `Failed to execute SuiteQL query: ${
-        error.response?.data?.detail || error.message
-      }`
-    );
+    console.error('NetSuite API Error:', error.response?.data || error.message)
+    throw new Error(`Failed to execute SuiteQL query: ${error.response?.data?.detail || error.message}`)
   }
 }

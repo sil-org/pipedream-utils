@@ -49,7 +49,7 @@ describe('netsuite.queryRecords', () => {
     assert.equal(response.length, 2)
     assert.ok(
       response[0].hasOwnProperty('exchangerate'),
-      'Did not find the expected field in the response. Did the call succeed?'
+      'Did not find the expected field in the response. Did the call succeed?',
     )
   })
 })
