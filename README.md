@@ -10,10 +10,11 @@ The following categories of utilities are available under /utils:
     - lastDay
     - normalizeString
     - startsWith
-- `netsuite`: NetSuite REST & SuiteQL helpers, including a function to execute a SuiteQL query.
+- `netsuite`: NetSuite REST & SuiteQL helpers, including functions to execute SuiteQL queries.
     - getRecordPath
     - request
     - queryRecord
+    - queryRecords
 - `sftp`: SFTP file operations, including a function to move a file by its path to a new destination on an SFTP host.
     - renameSftpFile
 
