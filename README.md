@@ -32,7 +32,9 @@ or in Pipedream just import the category/ies of functions you want.
 
 ## Contributing
 
-Use the recommended extionsions with VSCode/VSCodium.
+Use the recommended extensions with VSCode/VSCodium.
+
+If using a different IDE, read the .vscode/extensions.json file and install the equivalent extensions in your environment.
 
 Use the scripts in package.json to test, lint and format your code.
 
