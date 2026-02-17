@@ -25,14 +25,14 @@ export function getRecordPath(url) {
   return u.substring(startIndex)
 }
 
-const handle_timeout = (start, count) => {
+const handleTimeout = (start, count, timeout, timeoutRecords) => {
   const duration = Date.now() - start
-  if (this.timeout && duration >= this.timeout * 1000) {
+  if (timeout && duration >= timeout * 1000) {
     console.error(`Timeout reached at ${duration / 1000} seconds`)
     return true
   }
 
-  if (this.timeout_records && count >= this.timeout_records) {
+  if (timeoutRecords && count >= timeoutRecords) {
     console.error(`Timeout reached at ${count} records in ${duration / 1000} seconds`)
     return true
   }
@@ -108,8 +108,8 @@ export async function queryRecord(query, config) {
  * @returns {Promise<any>}
  */
 export async function queryRecords(query, config, timeout, timeoutRecords) {
-  const client = new NetsuiteApiClient(JSON.parse(this.config));
-  const limit = Math.min(1000, this.timeout_records)
+  const client = new NetsuiteApiClient(config)
+  const limit = Math.min(1000, timeoutRecords)
   let offset = 0
   const start = Date.now()
   let response = {}
@@ -117,19 +117,15 @@ export async function queryRecords(query, config, timeout, timeoutRecords) {
   try {
     let items = []
     do {
-      response = await client.query(this.query, limit, offset)
+      response = await client.query(query, limit, offset)
       items = items.concat(response.items)
       offset += limit
 
-      if (await this.handle_timeout(start, items.length)) {
+      if (handleTimeout(start, items.length, timeout, timeoutRecords)) {
         break
       }
     } while (response.hasMore)
 
-    $.export(
-      "$summary",
-      `Successfully ran SuiteQL query`
-    );
     return items;
   } catch (error) {
     console.error(
