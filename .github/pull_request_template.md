@@ -24,5 +24,5 @@ paste_backlog_issue_link_here
 
 PR checklist:
 - [ ] Add (or update) tests for new (or revised) code
-- [ ] Bump version number (see [semver.org](https://semver.org/))
+- [ ] Bump version number in package.json (see [semver.org](https://semver.org/)).
 - [ ] Update README.md
