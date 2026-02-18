@@ -4,6 +4,10 @@
   "version": "0.2.0",
   "description": "Utilities to be used in Pipedream as NPM dependencies",
   "main": "index.js",
+  "files": [
+    "utils",
+    "!utils/*.test.js"
+  ],
   "scripts": {
     "test": "node --test",
     "lint": "npx eslint .",
