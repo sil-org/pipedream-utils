@@ -39,7 +39,7 @@ To manually run the tests...
 
 Note: If you also want to run the NetSuite integration tests, copy `.env.example` to
 `.env` and put the application credentials (e.g. to your NetSuite Sandbox) in the
-appropriate places in the `NETSUITE_CONFIG_DEV` value.
+appropriate places in the `NETSUITE_CONFIG_DEV` value. Please remember to delete the `.env` file as soon as possible after you're finished.
 
 ## Contributing
 
