@@ -68,8 +68,8 @@ export async function request(options, config) {
 }
 
 /**
- * Run a SuiteQL query to get a specific (single) NetSuite records.
- * @param {string} query
+ * Run a SuiteQL query to get a specific (single) NetSuite record.
+ * @param {string} query - SuiteQL Query
  * @param {Config} config - NetSuite configuration
  * @returns {Promise<any>}
  */
@@ -84,16 +84,18 @@ export async function queryRecord(query, config) {
     response = await client.query(query, limit, offset)
   } catch (error) {
     const msg = error instanceof Error ? error.message : error
-    console.error('NetSuite SuiteQL error', msg)
-    throw new Error(`Failed to execute SuiteQL query: ${msg}`)
+
+    throw Error(`NetSuite SuiteQL error: ${msg}`)
   }
 
   if (response?.items.length === 0) {
-    throw new Error(`no record found for query: ${query}`)
+    return null
   }
 
   if (response?.items.length !== 1) {
-    throw new Error(`more than one record found for query: ${query}`)
+    throw new Error(
+      `Expected 1 record but found ${response.items.length} records (ids: ${response.items.map((item) => item.id).join(', ')}) for query: ${query}`,
+    )
   }
 
   return response.items[0]
