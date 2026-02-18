@@ -93,7 +93,9 @@ export async function queryRecord(query, config) {
   }
 
   if (response?.items.length !== 1) {
-    throw new Error(`Expected 1 record but found ${response.items.length} for query: ${query}`)
+    throw new Error(
+      `Expected 1 record but found ${response.items.length} records (ids: ${response.items.map((item) => item.id).join(', ')}) for query: ${query}`,
+    )
   }
 
   return response.items[0]
