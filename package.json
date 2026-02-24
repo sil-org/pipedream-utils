@@ -4,6 +4,7 @@
   "version": "0.3.0",
   "description": "Utilities to be used in Pipedream as NPM dependencies",
   "main": "index.js",
+  "types": "index.d.ts",
   "files": [
     "utils",
     "!utils/*.test.js"
@@ -13,7 +14,8 @@
     "lint": "npx eslint .",
     "type-check": "tsc",
     "format": "prettier --write \"**/*.js\"",
-    "format-check": "prettier --check \"**/*.js\""
+    "format-check": "prettier --check \"**/*.js\"",
+    "generate-types": "tsc --allowJs --declaration --emitDeclarationOnly --outDir ."
   },
   "repository": {
     "type": "git",
