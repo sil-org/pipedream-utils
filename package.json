@@ -12,7 +12,7 @@
   "scripts": {
     "test": "node --test",
     "lint": "npx eslint .",
-    "type-check": "tsc",
+    "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.js\"",
     "format-check": "prettier --check \"**/*.js\"",
     "generate-types": "tsc --allowJs --declaration --emitDeclarationOnly --outDir ."
