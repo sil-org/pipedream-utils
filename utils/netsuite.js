@@ -51,6 +51,10 @@ export async function request(options, config) {
 
   try {
     const response = await client.request(options)
+    console.log('NetSuite response headers:', {
+      'x-netsuite-propertyvalidation': response.headers['x-netsuite-propertyvalidation'],
+      'x-netsuite-warning': response.headers['x-netsuite-warning'],
+    })
     // After a POST request to a '/record' path, make a GET call to retrieve the new record.
     if (options.method === 'POST' && options?.path?.startsWith('/record') && response.headers['location']) {
       options.method = 'GET'
