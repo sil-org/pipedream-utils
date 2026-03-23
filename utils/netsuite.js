@@ -139,7 +139,7 @@ export async function queryRecords(query, config, timeout = null, timeoutRecords
   }
 }
 
-/** Returns a safe SuiteQL string literal, including the surrounding single quotes.
+/** Returns a safe SQL or SuiteQL string literal, including the surrounding single quotes.
  * @param {any} value
  * @returns {string}
  */
