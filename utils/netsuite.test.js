@@ -114,3 +114,34 @@ describe('netsuite.request', () => {
     assert.strictEqual(response.statusCode, 204)
   })
 })
+
+describe('suiteqlString', () => {
+  it('returns empty string literal for null/undefined', () => {
+    assert.equal(netsuite.suiteqlString(null), "''")
+    assert.equal(netsuite.suiteqlString(undefined), "''")
+  })
+
+  it('wraps regular strings in single quotes', () => {
+    assert.equal(netsuite.suiteqlString('abc'), "'abc'")
+    assert.equal(netsuite.suiteqlString(''), "''")
+  })
+
+  it('escapes single quotes by doubling them', () => {
+    assert.equal(netsuite.suiteqlString("O'Brien"), "'O''Brien'")
+    assert.equal(netsuite.suiteqlString("a'b'c"), "'a''b''c'")
+  })
+
+  it('does not special-case double quotes or backticks', () => {
+    assert.equal(netsuite.suiteqlString('he said "hi"'), `'he said "hi"'`)
+    assert.equal(netsuite.suiteqlString('use `code`'), "'use `code`'")
+  })
+
+  it('removes NUL characters defensively', () => {
+    assert.equal(netsuite.suiteqlString('a\u0000b'), "'ab'")
+  })
+
+  it('stringifies non-strings', () => {
+    assert.equal(netsuite.suiteqlString(123), "'123'")
+    assert.equal(netsuite.suiteqlString(true), "'true'")
+  })
+})

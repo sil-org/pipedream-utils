@@ -138,3 +138,16 @@ export async function queryRecords(query, config, timeout = null, timeoutRecords
     throw new Error(`Failed to execute SuiteQL query: ${error.response?.data?.detail || error.message}`)
   }
 }
+
+/** Returns a safe SuiteQL string literal, including the surrounding single quotes.
+ * @param {any} value
+ * @returns {string}
+ */
+export function suiteqlString(value) {
+  if (value === null || value === undefined) {
+    return "''"
+  }
+
+  const s = String(value).replace(/\0/g, '').replace(/'/g, "''")
+  return `'${s}'`
+}
