@@ -143,7 +143,7 @@ export async function queryRecords(query, config, timeout = null, timeoutRecords
  * @param {any} value
  * @returns {string}
  */
-export function suiteqlString(value) {
+export function sqlString(value) {
   if (value === null || value === undefined) {
     return "''"
   }
