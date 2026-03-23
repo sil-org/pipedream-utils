@@ -1,7 +1,7 @@
 {
   "name": "@sil-org/pipedream-utils",
   "type": "module",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Utilities to be used in Pipedream as NPM dependencies",
   "main": "index.js",
   "types": "index.d.ts",
@@ -15,7 +15,7 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.js\"",
     "format-check": "prettier --check \"**/*.js\"",
-    "generate-types": "tsc --allowJs --declaration --emitDeclarationOnly --outDir ."
+    "generate-types": "find . -name \"*.d.ts\" -not -path \"./node_modules/*\" -delete && tsc --allowJs --declaration --emitDeclarationOnly --outDir ."
   },
   "repository": {
     "type": "git",
