@@ -58,16 +58,17 @@ jobs:
 
       - name: Commit updated types or fail on main
         run: |
-          if git diff --quiet; then
+          git add -- $(find . -name "*.d.ts" -not -path "./node_modules/*")
+          if git diff --cached --quiet; then
             echo "Types are up to date"
+            git restore --staged .
           elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
             echo "Types are out of date on main!"
-            git diff
+            git diff --cached
             exit 1
           else
             git config user.name "github-actions[bot]"
             git config user.email "github-actions[bot]@users.noreply.github.com"
-            git add '**/*.d.ts'
             git commit -m "chore: regenerate types"
             git push
           fi
