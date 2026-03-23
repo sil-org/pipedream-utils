@@ -38,6 +38,8 @@ jobs:
     name: Check generated types are up to date
     runs-on: ubuntu-latest
     timeout-minutes: ${{ fromJSON(vars.DEFAULT_JOB_TIMEOUT_MINUTES) }}
+    permissions:
+      contents: write
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -54,5 +56,19 @@ jobs:
       - name: Generate types
         run: npm run generate-types
 
-      - name: Fail if generated types differ from committed types
-        run: git diff --exit-code
+      - name: Commit updated types or fail on main
+        run: |
+          git add -- $(find . -name "*.d.ts" -not -path "./node_modules/*")
+          if git diff --cached --quiet; then
+            echo "Types are up to date"
+            git restore --staged .
+          elif [[ "${{ github.ref }}" == "refs/heads/main" ]]; then
+            echo "Types are out of date on main!"
+            git diff --cached
+            exit 1
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git commit -m "chore: regenerate types"
+            git push
+          fi
