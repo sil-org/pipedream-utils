@@ -7,16 +7,17 @@ This repository contains a collection of utilities that can be used as NPM depen
 The following categories of utilities are available under /utils:
 
 - `helpers`: Miscellaneous utilities, such as string normalization and date manipulation.
-    - lastDay
-    - normalizeString
-    - startsWith
+  - lastDay
+  - normalizeString
+  - startsWith
 - `netsuite`: NetSuite REST & SuiteQL helpers, including functions to execute SuiteQL queries.
-    - getRecordPath
-    - queryRecord
-    - queryRecords
-    - request
+  - getRecordPath
+  - queryRecord
+  - queryRecords
+  - request
+  - sqlString
 - `sftp`: SFTP file operations, including a function to move a file by its path to a new destination on an SFTP host.
-    - renameSftpFile
+  - renameSftpFile
 
 ## Import Example
 
@@ -34,6 +35,7 @@ or in Pipedream just import the category/ies of functions you want.
 ## Tests
 
 To manually run the tests...
+
 1. Clone this repo.
 2. Install the npm dependencies: `npm install`
 3. Run `npm test`

@@ -36,6 +36,11 @@ export function queryRecord(query: string, config: Config): Promise<any>;
  * @returns {Promise<Array>}
  */
 export function queryRecords(query: string, config: Config, timeout?: number | null, timeoutRecords?: number): Promise<any[]>;
+/** Returns a safe SQL or SuiteQL string literal, including the surrounding single quotes.
+ * @param {any} value
+ * @returns {string}
+ */
+export function sqlString(value: any): string;
 /**
  * Represents the NetSuite OAuth configuration.
  */
