@@ -15,7 +15,7 @@
     "type-check": "tsc --noEmit",
     "format": "prettier --write \"**/*.js\"",
     "format-check": "prettier --check \"**/*.js\"",
-    "generate-types": "tsc --allowJs --declaration --emitDeclarationOnly --outDir ."
+    "generate-types": "find . -name \"*.d.ts\" -not -path \"./node_modules/*\" -delete && tsc --allowJs --declaration --emitDeclarationOnly --outDir ."
   },
   "repository": {
     "type": "git",
