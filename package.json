@@ -1,11 +1,12 @@
 {
   "name": "@sil-org/pipedream-utils",
   "type": "module",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Utilities to be used in Pipedream as NPM dependencies",
   "main": "index.js",
   "types": "index.d.ts",
   "files": [
+    "index.d.ts",
     "utils",
     "!utils/*.test.js"
   ],
