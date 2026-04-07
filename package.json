@@ -1,7 +1,7 @@
 {
   "name": "@sil-org/pipedream-utils",
   "type": "module",
-  "version": "0.4.1",
+  "version": "0.4.2",
   "description": "Utilities to be used in Pipedream as NPM dependencies",
   "main": "index.js",
   "types": "index.d.ts",
@@ -33,16 +33,16 @@
   "homepage": "https://github.com/sil-org/pipedream-utils#readme",
   "dependencies": {
     "netsuite-api-client": "^1.0.3",
-    "ssh2-sftp-client": "^12.0.1"
+    "ssh2-sftp-client": "^12.1.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
-    "@types/node": "^25.0.9",
-    "@typescript-eslint/eslint-plugin": "^8.53.0",
-    "@typescript-eslint/parser": "^8.53.0",
+    "@types/node": "^25.5.2",
+    "@typescript-eslint/eslint-plugin": "^8.58.0",
+    "@typescript-eslint/parser": "^8.58.0",
     "eslint": "^9.39.1",
     "globals": "^16.5.0",
-    "prettier": "^3.7.4",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   }
 }
