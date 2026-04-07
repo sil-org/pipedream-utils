@@ -55,9 +55,8 @@ jobs:
           always-auth: true
           cache: npm
 
-      - run:
-          npm ci
+      - run: npm ci
 
-          # Ensure npm 11.5.1 or later is installed
+      # Ensure npm 11.5.1 or later is installed
       - name: Publish
         run: npx --yes npm@latest publish --provenance --access public
