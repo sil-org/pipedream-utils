@@ -30,7 +30,7 @@ npm install @sil-org/pipedream-utils
 
 or in Pipedream just import the category/ies of functions you want.
 
-`import { helpers, netsuite } from '@sil-org/pipedream-utils@^0.2.0'`
+`import { helpers, netsuite } from '@sil-org/pipedream-utils@^0.4.2'`
 
 ## Tests
 
