@@ -54,4 +54,4 @@ Use the scripts in package.json to test, lint and format your code.
 
 The actions will check it when you push.
 
-The "Publish" action must be triggered manually in Github after updating the package.json version (and running `npm i` to update it in the lock file.)
+The "Publish" action is triggered when a new tag (semver) is pushed in Github.
